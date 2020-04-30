@@ -1,0 +1,20 @@
+{
+  "name": "tizaara-web-vue",
+  "version": "1.0.0",
+  "description": "Tizaara website B2B",
+  "author": "Mr. Saiful Islam",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "node-sass": "^4.14.0",
+    "sass-loader": "^8.0.2"
+  }
+}
