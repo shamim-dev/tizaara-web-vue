@@ -50,6 +50,13 @@ export default {
     '@/assets/css/owl.carousel.css',
     '@/assets/css/style.css'
   ],
+
+  transition: {
+    name: "fade",
+    mode: "out-in"
+  },
+
+  
   js: [
     '@/assets/js/bootstrap.js',
     '@/assets/js/bootstrap.min.js',
