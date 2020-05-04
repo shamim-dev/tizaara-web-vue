@@ -71,6 +71,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+  './plugins/mixins/user.js'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -81,7 +82,46 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+  '@nuxtjs/axios',
+  '@nuxtjs/auth'
   ],
+   /*
+  ** Axios module configuration
+  */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: "http://localhost:8080/api"
+  },
+
+  auth: {
+     strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: "account/login",
+            method: "post",
+            propertyName: "token"
+          },
+          user: {
+            url: "account/profile",
+            method: "get",
+            propertyName: "user"
+          },
+          logout: {
+            url: "account/logout",
+            method: "post"
+          }
+        }
+      }
+    },
+    redirect: {
+      login: '/account/login',
+      logout: '/',
+      user: '/account',
+      callback:'/'
+    }
+  },
+
   /*
   ** Build configuration
   */

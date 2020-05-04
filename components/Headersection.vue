@@ -40,9 +40,17 @@
                 </div>
                 <div class="col-md-3">
                     <div class="login_register mt-5">
-                        <span ><strong>
-                         <nuxt-link to="/account/login" class="btn_danger text-decoration-none">Login</nuxt-link > / <nuxt-link to="/account/register" class="btn_danger text-decoration-none">Register</nuxt-link>
-                         </strong></span>
+                        <template v-if="!authenticated">
+                            <span ><strong>
+                             <nuxt-link to="/account/login" class="btn_danger text-decoration-none">Login</nuxt-link > / <nuxt-link to="/account/register" class="btn_danger text-decoration-none">Register</nuxt-link>
+                             </strong></span>
+                        </template>
+                        <template v-if="authenticated">
+                            <span ><strong>
+                             <nuxt-link to="/account/login" class="btn_danger text-decoration-none">{{user.userName}}</nuxt-link > | <a href="#" @click="logout" class="btn_danger text-decoration-none"> Logout</a>
+                             </strong></span>
+                        </template>
+                        
                     </div>
                 </div>
             </div>
@@ -51,3 +59,17 @@
         </div>
     </section>
 </template>
+
+<script>
+    import {mapGetters} from 'vuex'
+    export default {
+       
+        methods: {
+              logout() {
+                this.$auth.logout()
+              }
+        }
+
+    }
+
+</script>

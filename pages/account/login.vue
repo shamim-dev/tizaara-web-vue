@@ -149,10 +149,17 @@
         },
 
         methods:{
-          loginSubmit(){
-          this.$router.push('/account');
-            //console.log(this.form);
-          }
+              async loginSubmit() {
+                  try {
+                    let response = await this.$auth.loginWith('local', { data: this.form })
+                    console.log(response)
+                  } catch (err) {
+                    console.log(err)
+                  }
+
+                   this.$router.push('/account');
+                }
+
         }
     }
 </script>
