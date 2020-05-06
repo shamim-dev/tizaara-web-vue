@@ -138,28 +138,35 @@
 </template>
 
 <script>
-    export default{
-        data(){
-         return{
-            form:{
-                login:'',
-                password:''
-            }
-         }
-        },
-
-        methods:{
-              async loginSubmit() {
-                  try {
-                    let response = await this.$auth.loginWith('local', { data: this.form })
-                    console.log(response)
-                  } catch (err) {
-                    console.log(err)
-                  }
-
-                   this.$router.push('/account');
-                }
-
-        }
+  export default{
+    data(){
+     return{
+      form:{
+        login:'', password:''
+      }
     }
+  },
+
+  methods:{
+
+    async loginSubmit() {
+      try {
+        this.$toast.show('Logging in...');
+        await this.$auth.loginWith('local', {
+          data: this.form
+        }).catch(e => {
+          this.$toast.error('Failed Logging In');
+        });
+
+        if (this.$auth.loggedIn) {
+          this.$toast.success('Successfully Logged In');
+          this.$router.push('/account');
+        }
+      } catch (e) {        
+        this.$toast.error('Username or Password wrong');
+      }
+    }
+
+  }
+}
 </script>

@@ -91,12 +91,12 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name" value="" />
+                                    <input type="text"  v-model="user.firstName" class="form-control" placeholder="First Name" value="" />
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name" value="" />
+                                    <input type="text"  v-model="user.lastName" class="form-control" placeholder="Last Name" value="" />
                                 </div>
                             </div>
                         </div>
@@ -104,18 +104,18 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Email or Phone Number" value="" />
+                                    <input type="text"  v-model="user.email" class="form-control" placeholder="Email or Phone Number" value="" />
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder=" Password" value="" />
+                                    <input type="password" v-model="user.password" class="form-control" placeholder=" Password" value="" />
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Confirm Password" value="" />
+                                    <input type="password" v-model="user.password_confirmation" class="form-control" placeholder="Confirm Password" value="" />
                                 </div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
 
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <button  id="next_btn1" class="btnSubmit text-white  pt-2 pb-2" @click="next_step1()" type="button" value="Next">Next</button>
+                                    <button  id="next_btn1" class="btnSubmit text-white  pt-2 pb-2" @click="next_step()" type="button" value="Next">Next</button>
 
                                 </div>
                             </div>
@@ -243,7 +243,7 @@
 
                             <div class="form-group  text-right m-align">
 
-                                <input id="next_btn2" class="btn-signup text-white " name="next" onclick="" type="button" value="Confirm">
+                                <input id="next_btn2" class="btn-signup text-white " name="next" @click="register()" type="button" value="Confirm">
 
 
                             </div>
@@ -260,6 +260,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
 
 	export default {
 		data() {
@@ -267,23 +268,68 @@
 				heading: 'HOME > REGISTER',
 				 firstStep: true,
 				 secondStep: false,
-				 secondTabStyleObject:{ }
+                 secondTabStyleObject:{ },
+                 
+                userData:{
+                    firstName:'',
+                    lastName:'',
+                    userName:'',
+                    email:'',
+                    phone:'',
+                    userType:'',
+                    password:'',
+                    password_confirmation:''
+                }
 			}
 		},
 		methods:{
-		  next_step1() {
+		    next_step() {
+
+                axios.post(`//localhost:8080/api/account/login`,{
+                    login: 'admin@gmail.com',
+                    password: '123456'
+                })
+                .then(response => {
+                    console.log(response);
+                // JSON responses are automatically parsed.
+                //this.posts = response.data
+                })
+                .catch(e => {
+                    console.log(e)
+                //this.errors.push(e)
+                })
+
+
+
                 this.firstStep=false;
                 this.secondStep=true;
                 this.secondTabStyleObject={ display : "block"};
 
-                },
+            },
 
-                prev_step1() {
+            prev_step() {
                 this.firstStep=true;
                 this.secondStep=false;
                 this.secondTabStyleObject={ };
 
-                }
+            },
+
+            register() 
+            {
+                console.log(this.userData);
+
+                axios.post(`http://localhost:8080/api/account/register`, this.userData)
+                .then(response => {
+                    console.log(response);
+                    alert(response);
+                // JSON responses are automatically parsed.
+                //this.posts = response.data
+                })
+                .catch(e => {
+                    console.log(e)
+                //this.errors.push(e)
+                })
+            }
 		},
 		head: {
 			title: 'Account Register'

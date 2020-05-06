@@ -83,14 +83,16 @@ export default {
   */
   modules: [
   '@nuxtjs/axios',
-  '@nuxtjs/auth'
+  '@nuxtjs/auth',
+  '@nuxtjs/toast',
+  'bootstrap-vue/nuxt'
   ],
    /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: "http://localhost:8080/api"
+    baseURL: "http://api.tizaara.com"
   },
 
   auth: {
@@ -122,6 +124,18 @@ export default {
     }
   },
 
+
+  toast: {
+      position: 'top-right',
+      duration: 2000
+    },
+
+    loading: {
+    name: 'chasing-dots',
+    color: '#ff5638',
+    background: 'white',
+    height: '4px'
+ },
   /*
   ** Build configuration
   */

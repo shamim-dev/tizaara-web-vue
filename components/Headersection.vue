@@ -47,7 +47,7 @@
                         </template>
                         <template v-if="authenticated">
                             <span ><strong>
-                             <nuxt-link to="/account/login" class="btn_danger text-decoration-none">{{user.userName}}</nuxt-link > | <a href="#" @click="logout" class="btn_danger text-decoration-none"> Logout</a>
+                             <nuxt-link to="/account" class="btn_danger text-decoration-none">{{user.userName}}</nuxt-link > | <a href="#" @click="logout" class="btn_danger text-decoration-none"> Logout</a>
                              </strong></span>
                         </template>
                         
@@ -66,6 +66,7 @@
        
         methods: {
               logout() {
+                this.$toast.show('Logging out...');
                 this.$auth.logout()
               }
         }
