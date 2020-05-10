@@ -684,6 +684,14 @@ custom_padding{
     opacity: 0;
 }
 
+.error-text{
+    color:red;
+}
+button[type=submit]:disabled {
+  background: #d8a797;
+  cursor: not-allowed;
+}
+
 
 /*small footer end here*/
 /*footer section CSS End Here*/

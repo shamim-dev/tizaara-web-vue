@@ -56,7 +56,12 @@ export default {
     mode: "out-in"
   },
 
-  
+// adding router middleware
+   router: {
+    middleware: ["clearValidationErrors"]
+  },
+
+
   js: [
     '@/assets/js/bootstrap.js',
     '@/assets/js/bootstrap.min.js',
@@ -71,7 +76,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-  './plugins/mixins/user.js'
+  "./plugins/mixins/user.js",
+  "./plugins/axios.js",
+  "./plugins/mixins/validation.js"
   ],
   /*
   ** Nuxt.js dev-modules
@@ -92,7 +99,8 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: "http://api.tizaara.com"
+     baseURL: "http://api.tizaara.com"
+    //baseURL: "http://localhost:8080/api"
   },
 
   auth: {

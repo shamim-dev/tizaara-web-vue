@@ -16,6 +16,8 @@ $("#expo_count_down")
 
 
     });
+
+    alert(777);
 /*
 
 

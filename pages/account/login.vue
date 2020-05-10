@@ -79,16 +79,29 @@
                         </div>
 
                         <form @submit.prevent="loginSubmit">
+                          <template v-if="errors.message">
+                              <div style="margin-top: 10px;" class="alert alert-danger alert-dismissible text-left">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Login Failed!</strong> <br> 
+                                {{errors.message}}.
+                              </div>
+                           </template>
+                          
+
 
                            <div class="row mt-5">
                                <div class="col-sm-12 col-md-12 col-lg-12">
                                    <div class="form-group">
-                                        <input v-model="form.login" type="text" class="form-control" placeholder="Email or Phone Number" autofocus required />
+                                        <input v-model="form.login" type="text" class="form-control" placeholder="Email or Phone Number" required />
+                                        <small class="error-text" v-if="errors.login">{{errors.login[0]}}</small>
                                     </div>
+
                                </div>
+
                                <div class="col-sm-12 col-md-12 col-lg-12">
                                    <div class="form-group">
                                         <input v-model="form.password" type="password" class="form-control" placeholder=" Enter Password" required />
+                                        <small class="error-text" v-if="errors.password">{{errors.password[0]}}</small>
                                     </div>
                                </div>
                            </div>
@@ -139,6 +152,7 @@
 
 <script>
   export default{
+    middleware: ['guest'],
     data(){
      return{
       form:{
@@ -155,6 +169,7 @@
         await this.$auth.loginWith('local', {
           data: this.form
         }).catch(e => {
+          console.log(e);
           this.$toast.error('Failed Logging In');
         });
 
