@@ -99,8 +99,8 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-     //baseURL: "http://api.tizaara.com"
-    baseURL: "http://localhost:8080/api"
+     baseURL: "http://api.tizaara.com"
+    //baseURL: "http://localhost:8080/api"
   },
 
   auth: {
