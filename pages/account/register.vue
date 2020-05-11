@@ -353,7 +353,6 @@
                 //console.log('Reseting the form')
                 var self = this; //you need this because *this* will refer to Object.keys below`
 
-                //Iterate through each object field, key is name of the object field`
                 Object.keys(this.formData).forEach(function(key,index) {
                   self.formData[key] = '';
               });

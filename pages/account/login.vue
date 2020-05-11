@@ -73,7 +73,7 @@
 
 
                     <div class="col-md-6 login-form-2 pt-5 pb-3">
-                        <h5 class="text-center"><strong>Welcome back!</strong></h5>
+                        <h5 class="text-center"><strong>Welcome back buddy!</strong></h5>
                         <div class="hr text-center m-auto">
                             <hr>
                         </div>
