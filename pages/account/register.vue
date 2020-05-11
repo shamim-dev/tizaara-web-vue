@@ -299,6 +299,7 @@
 
 <script>
 	export default {
+        middleware: ['guest'],
 		data() {
 			return {
 				heading: 'HOME > REGISTER',
