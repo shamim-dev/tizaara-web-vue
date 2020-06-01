@@ -150,7 +150,7 @@ export async function setContext (app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {}
+      env: {"API_BSE_URL":"http://api.tizaara.com"}
     }
     // Only set once
     if (context.req) {

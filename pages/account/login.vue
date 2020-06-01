@@ -92,8 +92,8 @@
                            <div class="row mt-5">
                                <div class="col-sm-12 col-md-12 col-lg-12">
                                    <div class="form-group">
-                                        <input v-model="form.login" type="text" class="form-control" placeholder="Email or Phone Number" required />
-                                        <small class="error-text" v-if="errors.login">{{errors.login[0]}}</small>
+                                        <input v-model="form.emailOrPhone" type="text" class="form-control" placeholder="Email or Phone Number" required />
+                                        <small class="error-text" v-if="errors.emailOrPhone">{{errors.emailOrPhone[0]}}</small>
                                     </div>
 
                                </div>
@@ -156,7 +156,7 @@
     data(){
      return{
       form:{
-        login:'', password:''
+        emailOrPhone:'', password:''
       }
     }
   },

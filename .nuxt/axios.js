@@ -151,7 +151,8 @@ export default (ctx, inject) => {
     "head": {},
     "post": {},
     "put": {},
-    "patch": {}
+    "patch": {},
+    "Accept-Encoding": "compress, gzip"
 }
 
   const axiosOptions = {

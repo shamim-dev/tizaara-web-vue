@@ -7,7 +7,7 @@ export default function({ $axios, store, redirect }) {
 
 		if (error.response.status === 404) {
 			store.dispatch("validation/setErrors", error.response.data.errors);
-			return redirect("/");
+			//return redirect("/");
 		}
 		return Promise.reject(error);
 	});

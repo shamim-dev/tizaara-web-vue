@@ -78,14 +78,14 @@
                         <template v-if="failed">
                           <div style="margin-top: 10px;" class="alert alert-danger alert-dismissible text-left">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>Register Failed!</strong> <br> 
+                            <strong>Failed!</strong> <br> 
                            {{errorMessages}}
                         </div>
                     </template>
                     <template v-if="successMessages">
                           <div style="margin-top: 10px;" class="alert alert-success alert-dismissible text-left">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>Register Success!</strong> <br> 
+                            <strong>Success!</strong> <br> 
                                 {{successMessages}}
                         </div>
                     </template>
@@ -123,8 +123,8 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <input v-model="formData.email" type="text" class="form-control" placeholder="Email Address" value="" />
-                                        <small class="error-text" v-if="errors.email">{{errors.email[0]}}</small>
+                                        <input v-model="formData.emailOrPhone" type="text" class="form-control" placeholder="Email or Phone Number" value="" />
+                                        <small class="error-text" v-if="errors.emailOrPhone">{{errors.emailOrPhone[0]}}</small>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
@@ -241,7 +241,7 @@
 
                 <div class="form-group toogle-country">
                    <!--  <div id="basic" data-input-name="country"></div> -->
-                    <select v-model="formData.countryId"  id="" class="form-control" >
+                    <select v-model="formData.country"  id="" class="form-control" >
                         <option value="">Select Country</option>
                         <option value="1">Bangladesh</option>
                         <option value="2">Afghanistan</option>
@@ -252,6 +252,7 @@
                         <option value="7">Pakistan</option>
                         <option value="8">Sri Lanka</option>
                     </select>
+                    <small class="error-text" v-if="errors.country"><br>{{errors.country[0]}}</small>
                 </div>
             </div>
             <div class="col-md-4">
@@ -260,6 +261,7 @@
             <div class="col-md-8">
                <div class="form-group">
                 <input v-model="formData.companyName" type="text" class="form-control" placeholder="Must be a legally registered company">
+                 <small class="error-text" v-if="errors.companyName"><br>{{errors.companyName[0]}}</small>
             </div>
         </div>
 
@@ -280,15 +282,59 @@
 
             <div class="form-group  text-right m-align">
                 <button @click="prev_step1()"> < </button>
-                <button type="submit"  :disabled=!formData.checkTerm id="next_btn2" class="btn-signup text-white"  value="Confirm">Confirm</button> 
+                <button type="submit"  :disabled=!formData.checkTerm id="next_btn2" class="btn-signup text-white"  value="Confirm"><span v-if="submit" class="spinner-border spinner-border-sm" role="status"></span> {{btnConfirmText}}</button> 
 
 
             </div>
         </div>
 
     </div>
-</fieldset>
- </form>
+    </fieldset>
+    </form>
+     <fieldset v-bind:style="mobileOtpTabStyleObject" class="nopading" style="padding: 0px 30px 0px 30px;" v-if="mobileOtp" id="second">
+        <form @submit.prevent="submitOtp">
+            <div class="row ">
+                <div class="col-sm-12">
+                    <h5 class="text-center"><strong>Verify Mobile OTP</strong></h5>
+                    <div class="hr text-center m-auto">
+                        <hr>
+                    </div>
+                </div>
+           <!--  <div class="col-md-4">
+               <p class="res-text">Mobile OTP</p>
+           </div> -->
+            <div class="col-md-12">
+               <div class="form-group">
+                <input type="hidden" v-model="verifyForm.phone" class="form-control" placeholder="Enter Your OTP">
+                <input type="text" v-model="verifyForm.otp" class="form-control" placeholder="Enter Your OTP">
+                <small class="error-text" v-if="errors.otp">{{errors.otp[0]}}</small>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 ">
+            <div class="form-group  text-right m-align">
+                <button type="submit" :disabled=otpSubmit id="next_btn1" class="btn-signup text-white"  value="Confirm"><span v-if="otpSubmit" class="spinner-border spinner-border-sm" role="status"></span>{{otpSubmitBtnText}}</button> 
+
+
+            </div>
+        </div>
+    </div>
+    </form>
+    </fieldset>
+    <div class="row" v-if="registerComplete">
+         
+        <div class="col-sm-12 col-md-6 col-lg-6">
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 ">
+            <div class="form-group  text-center m-align">
+               <!--  <button type="submit" id="next_btn1" class="btn-signup text-white"  value="Confirm">Login</button>  -->
+                 <nuxt-link to="/account/login" class="btn-signup text-white text-decoration-none">Go To Login</nuxt-link >
+
+
+            </div>
+        </div>       
+    </div>
 </div>
 
 
@@ -305,21 +351,34 @@
 				heading: 'HOME > REGISTER',
 				 firstStep: true,
 				 secondStep: false,
+                 mobileOtp: false,
+                 btnConfirmText: "Confirm",
 				 secondTabStyleObject:{ },
+                 mobileOtpTabStyleObject:{ display : "block" },
 
                  formData:{
                     firstName:'',
                     lastName:'',
-                    email:'',
+                    emailOrPhone:'',
                     password:'',
                     password_confirmation:'',
                     userType:'',
-                    countryId:'',
+                    country:'',
+                    companyName:'',
                     checkTerm:''
+                 },
+                 verifyForm:{
+                    otp:'',
+                    phone:''
                  },
                  failed:false,
                  errorMessages:'',
                  successMessages:'',
+                 registerComplete:false,
+                 submit: false,
+                 otpSubmitBtnText: 'Verify Now',
+                 otpSubmit: false,
+                 
 
 			}
 		},
@@ -338,22 +397,71 @@
 
             },
             async submitRegister(){
+                this.formData.checkTerm=false;
+                //this.btnConfirmText='Submitting';
+                this.submit=true;
                 this.$toast.show('Submitting Data.....');
-              await this.$axios.$post('account/register', this.formData).then((res) => {
+                await this.$axios.$post('account/register', this.formData).then((res) => {
                   this.failed=false;
+                  this.mobileOtp=false;
+                  this.secondStep=false;
+                  //this.registerComplete=true;
+                  this.verifyForm.phone=res.user.phone;
                   this.successMessages=res.message;
                   this.resetForm();
+                  this.$toast.success('Form Successfully Submitted!');
+                  if(res.signUpBy=='phone'){
+                    this.firstStep=false;
+                    this.secondStep=false;
+                    this.mobileOtp=true;
+                  }else{
+                     this.registerComplete=true;
+                  }
               }).catch(e => {
                   this.failed=true;
-                  this.errorMessages='Please, check input carefully.';
+                  this.submit=false;
+                  this.formData.checkTerm=true;
+                  this.btnConfirmText='Confirm';
+                  this.errorMessages=e.response.data.messages;
                   this.$toast.error('Register Failed');
               });
 
             },
-            resetForm() {
-                //console.log('Reseting the form')
-                var self = this; //you need this because *this* will refer to Object.keys below`
+            async submitOtp(){
+                this.$toast.show('Validating OTP.....');
+                this.otpSubmit=true;
+                this.otpSubmitBtnText='Verifiying OTP';
+                 await this.$axios.$post('account/verify-otp', this.verifyForm).then((res) => {
+                  this.failed=false;
+                  this.mobileOtp=false;
+                  
+                  if(res.status=='success'){
+                    this.registerComplete=true;
+                    this.successMessages="Your Mobile Verified Successfully! Please, Login to manage your account!";
+                    this.$toast.success('Your Mobile Verified Successfully! Please, Login to manage your account!');
+                  }else{
 
+                    this.otpSubmit=false;
+                    this.failed=true;
+                    this.successMessages='';
+                    this.mobileOtp=true;
+                    this.errorMessages=res.messages;
+                    this.$toast.error(res.messages);
+                  }
+                  
+                
+              }).catch(e => {
+               this.otpSubmit=false;
+               this.failed=true;
+               this.successMessages='';
+               this.mobileOtp=true;
+               this.errorMessages='OTP verification Failed!';
+               this.$toast.error('OTP verification Failed!');
+              });
+
+            },
+            resetForm() {
+                var self = this; //you need this because *this* will refer to Object.keys below`
                 Object.keys(this.formData).forEach(function(key,index) {
                   self.formData[key] = '';
               });

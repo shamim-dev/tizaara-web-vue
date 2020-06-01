@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 export default {
   mode: 'spa',
@@ -38,7 +39,6 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
   /*
   ** Global CSS
   */
@@ -84,6 +84,7 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    '@nuxtjs/dotenv'
   ],
   /*
   ** Nuxt.js modules
@@ -99,8 +100,10 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-     baseURL: "http://api.tizaara.com"
-    //baseURL: "http://localhost:8080/api"
+    baseURL: process.env.API_BSE_URL,
+    headers: {
+      'Accept-Encoding': 'compress, gzip'
+    }
   },
 
   auth: {
