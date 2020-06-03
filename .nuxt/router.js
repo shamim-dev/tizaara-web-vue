@@ -11,6 +11,7 @@ const _5d050504 = () => interopDefault(import('..\\pages\\account\\register.vue'
 const _55a4ddff = () => interopDefault(import('..\\pages\\account\\register-mm.vue' /* webpackChunkName: "pages_account_register-mm" */))
 const _df83e218 = () => interopDefault(import('..\\pages\\account\\reset-password.vue' /* webpackChunkName: "pages_account_reset-password" */))
 const _68338b2a = () => interopDefault(import('..\\pages\\account\\reset-password-success.vue' /* webpackChunkName: "pages_account_reset-password-success" */))
+const _b0e1b138 = () => interopDefault(import('..\\pages\\account\\social-login.vue' /* webpackChunkName: "pages_account_social-login" */))
 const _479c5640 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 // TODO: remove in Nuxt 3
@@ -61,6 +62,10 @@ export const routerOptions = {
     path: "/account/reset-password-success",
     component: _68338b2a,
     name: "account-reset-password-success"
+  }, {
+    path: "/account/social-login",
+    component: _b0e1b138,
+    name: "account-social-login"
   }, {
     path: "/",
     component: _479c5640,
